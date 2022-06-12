@@ -1,5 +1,8 @@
 package net.chocomint.math;
 
+import net.chocomint.math.annotations.Utils;
+
+@Utils
 public class Series {
 	public static double sum(Sequence sequence, int from, int to) {
 		double res = 0;

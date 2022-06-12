@@ -18,14 +18,12 @@ public enum Digit {
 		this.n = n;
 	}
 
-	public static DigitWithCarry add(Digit d1, Digit d2) {
-		int f = d1.n + d2.n;
-		return f > 9 ? new DigitWithCarry(true, Digit.values()[f - 10]) : new DigitWithCarry(false, Digit.values()[f]);
+	Digit inverse() {
+		return this.n == 0 ? N0 : Digit.values()[10 - this.n];
 	}
 
-	public static DigitWithCarry addWithCarry(boolean carry, Digit d1, Digit d2) {
-		DigitWithCarry dc = add(d1, d2);
-		return new DigitWithCarry(dc.carry(), add(dc.digit(), carry ? N1 : N0).digit());
+	Digit sub1() {
+		return this.n == 0 ? N0 : Digit.values()[this.n - 1];
 	}
 
 	@Override

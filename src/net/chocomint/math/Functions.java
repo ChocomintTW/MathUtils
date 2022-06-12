@@ -1,5 +1,8 @@
 package net.chocomint.math;
 
+import net.chocomint.math.annotations.Utils;
+
+@Utils
 public class Functions {
 	public static final double EPS = 1e-12;
 

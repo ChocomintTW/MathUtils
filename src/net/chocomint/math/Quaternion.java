@@ -200,6 +200,13 @@ public class Quaternion implements Computable<Quaternion>, IBase<Quaternion> {
 
 	@Override
 	public String toString() {
-		return real + " + " + imag;
+		return element(real, "", false)
+				+ element(imag.getX(), "i", real != 0)
+				+ element(imag.getY(), "j", real != 0 || imag.getX() != 0)
+				+ element(imag.getZ(), "k", real != 0 || imag.getX() != 0 || imag.getY() != 0);
+	}
+
+	private String element(double d, String part, boolean sign) {
+		return d == 0 ? "" : (d == 1 ? (sign ? "+" : "") + part : (d == -1 ? "-" + part : (d > 0 ? (sign ? "+" : "") : "") + d + part));
 	}
 }
