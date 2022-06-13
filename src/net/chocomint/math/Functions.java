@@ -5,7 +5,7 @@ import net.chocomint.math.annotations.Utils;
 
 @Utils
 public class Functions {
-	public static final double EPS = 1e-12;
+	public static final double EPS = 1e-8;
 
 	@Remark("Euler–Mascheroni constant")
 	public static final double GAMMA = 0.5772156649015328606065;
