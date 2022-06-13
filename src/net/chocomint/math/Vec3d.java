@@ -22,7 +22,7 @@ public class Vec3d implements Computable<Vec3d>, IBase<Vec3d> {
 		this.z = z;
 	}
 
-	public Vec3d(Vec3d vec3d) {
+	Vec3d(Vec3d vec3d) {
 		this.x = vec3d.x;
 		this.y = vec3d.y;
 		this.z = vec3d.z;

@@ -24,7 +24,7 @@ public class Complex implements Computable<Complex>, IBase<Complex> {
 		this.imag = 0;
 	}
 
-	public Complex(Complex duplicate) {
+	Complex(Complex duplicate) {
 		this.real = duplicate.real;
 		this.imag = duplicate.imag;
 	}
@@ -76,10 +76,6 @@ public class Complex implements Computable<Complex>, IBase<Complex> {
 		return this;
 	}
 
-	public static Complex multiply(Complex c1, Complex c2) {
-		return new Complex(c1).multiply(c2);
-	}
-
 	@Override
 	public Complex multiply(double val) {
 		this.set(new Complex(real * val, imag * val));
@@ -122,12 +118,12 @@ public class Complex implements Computable<Complex>, IBase<Complex> {
 	}
 
 	public static Complex sin(Complex c) {
-		Complex tmp = multiply(c.copy(), i);
+		Complex tmp = c.copy().multiply(i);
 		return (exp(tmp).subtract(exp(tmp.copy().negate()))).divide(i.copy().multiply(2));
 	}
 
 	public static Complex cos(Complex c) {
-		Complex tmp = multiply(c.copy(), i);
+		Complex tmp = c.copy().multiply(i);
 		return (exp(tmp).add(exp(tmp.copy().negate()))).divide(2);
 	}
 
@@ -150,12 +146,11 @@ public class Complex implements Computable<Complex>, IBase<Complex> {
 	// Multivalued
 
 	public static Multivalued Ln(Complex c) {
-		return new Multivalued((int k) -> new Complex(Math.log(c.norm()), c.Arg() + 2 * k * Math.PI));
+		return new Multivalued(k -> new Complex(Math.log(c.norm()), c.Arg() + 2 * k * Math.PI));
 	}
 
 	public static Multivalued pow(Complex base, Complex power) {
-		return new Multivalued((int k) -> exp(power.copy()
-				.multiply(Ln(base).PV().add(i.copy().multiply(2 * k * Math.PI)))));
+		return new Multivalued(k -> exp(power.copy().multiply(Ln(base).PV().add(i.copy().multiply(2 * k * Math.PI)))));
 	}
 
 	@Override

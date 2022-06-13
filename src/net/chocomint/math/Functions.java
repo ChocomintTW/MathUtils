@@ -1,17 +1,16 @@
 package net.chocomint.math;
 
+import net.chocomint.math.annotations.Remark;
 import net.chocomint.math.annotations.Utils;
 
 @Utils
 public class Functions {
 	public static final double EPS = 1e-12;
 
-	/**
-	 * Euler–Mascheroni constant*/
+	@Remark("Euler–Mascheroni constant")
 	public static final double GAMMA = 0.5772156649015328606065;
 
-	/**
-	 * A characteristic S-shaped function*/
+	@Remark("A characteristic S-shaped function")
 	public static double sigmoid(double x) {
 		return 1 / (1 + Math.exp(-x));
 	}
@@ -28,32 +27,25 @@ public class Functions {
 		return Math.abs(x - y) < eps;
 	}
 
-	/**
-	 * Fraction*/
 	public static long fraction(long x) {
 		return x == 0 ? 1 : x * fraction(x - 1);
 	}
 
-	/**
-	 * Combination*/
+	@Remark("Combination")
 	public static long C(int n, int k) {
 		return (long) (Series.product(t -> t, n - k + 1, n) / fraction(k));
 	}
 
-	/**
-	 * Permutation*/
+	@Remark("Permutation")
 	public static long P(int n, int k) {
 		return (long) Series.product(t -> t, n - k + 1, n);
 	}
 
-	/**
-	 * Combination with repetition*/
+	@Remark("Combination with repetition")
 	public static long H(int n, int k) {
 		return C(n + k - 1, k);
 	}
 
-	/**
-	 * Gamma function for Real numbers*/
 	public static double gamma(double x) {
 		if (x > 1)
 			return (x - 1) * gamma(x - 1);
@@ -72,14 +64,10 @@ public class Functions {
 		}
 	}
 
-	/**
-	 * Beta function for Real numbers*/
 	public static double beta(double x, double y) {
 		return gamma(x) * gamma(y) / gamma(x + y);
 	}
 
-	/**
-	 * Bessel function */
 	public static double bessel(int alpha, double x) {
 		return Series.sumInf(m -> Math.pow(-1, m) / (double) fraction(m) / fraction(m + alpha) * Math.pow(x / 2, 2 * m + alpha), 0);
 	}
