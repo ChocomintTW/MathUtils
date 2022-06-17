@@ -2,6 +2,7 @@ package net.chocomint.math;
 
 import net.chocomint.math.base.Computable;
 import net.chocomint.math.base.IBase;
+import net.chocomint.math.geometry.dim3.Vec3d;
 
 public class Quaternion implements Computable<Quaternion>, IBase<Quaternion> {
 	public static final Quaternion i = new Quaternion(0, 1, 0, 0);

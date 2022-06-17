@@ -2,10 +2,11 @@ package net.chocomint.math;
 
 import net.chocomint.math.annotations.Remark;
 import net.chocomint.math.annotations.Utils;
+import net.chocomint.math.sequence.Series;
 
 @Utils
 public class Functions {
-	public static final double EPS = 1e-12;
+	public static final double EPS = 1e-8;
 
 	@Remark("Euler–Mascheroni constant")
 	public static final double GAMMA = 0.5772156649015328606065;
@@ -16,7 +17,7 @@ public class Functions {
 	}
 
 	public static boolean doubleEqual(double x, double y) {
-		return Math.abs(x - y) < EPS;
+		return Math.abs(x - y) < 1e-12;
 	}
 
 	public static boolean doubleNear(double x, double y) {
@@ -33,12 +34,12 @@ public class Functions {
 
 	@Remark("Combination")
 	public static long C(int n, int k) {
-		return (long) (Series.product(t -> t, n - k + 1, n) / fraction(k));
+		return (long) (Series.product(t -> (double) t, n - k + 1, n) / fraction(k));
 	}
 
 	@Remark("Permutation")
 	public static long P(int n, int k) {
-		return (long) Series.product(t -> t, n - k + 1, n);
+		return (long) Series.product(t -> (double) t, n - k + 1, n);
 	}
 
 	@Remark("Combination with repetition")
@@ -69,7 +70,12 @@ public class Functions {
 	}
 
 	public static double bessel(int alpha, double x) {
-		return Series.sumInf(m -> Math.pow(-1, m) / (double) fraction(m) / fraction(m + alpha) * Math.pow(x / 2, 2 * m + alpha), 0);
+		try {
+			return Series.sumInf(m -> Math.pow(-1, m) / (double) fraction(m) / fraction(m + alpha) * Math.pow(x / 2, 2 * m + alpha), 0);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return 0;
+		}
 	}
 
 }

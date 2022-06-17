@@ -1,5 +1,6 @@
-package net.chocomint.math;
+package net.chocomint.math.geometry.dim3;
 
+import net.chocomint.math.Quaternion;
 import net.chocomint.math.base.Computable;
 import net.chocomint.math.base.IBase;
 import net.chocomint.math.matrix.Matrix;
@@ -46,6 +47,10 @@ public class Vec3d implements Computable<Vec3d>, IBase<Vec3d> {
 
 	public double distanceTo(Vec3d vec3d) {
 		return Math.sqrt(Math.pow(this.x - vec3d.x, 2) + Math.pow(this.y - vec3d.y, 2) + Math.pow(this.z - vec3d.z, 2));
+	}
+
+	public Vec3d projection(Vec3d vec3d) {
+		return vec3d.copy().multiply(this.dot(vec3d) / Math.pow(vec3d.length(), 2));
 	}
 
 	@Override
