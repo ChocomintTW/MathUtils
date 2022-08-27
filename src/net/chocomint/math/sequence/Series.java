@@ -1,9 +1,7 @@
 package net.chocomint.math.sequence;
 
 import net.chocomint.math.Functions;
-import net.chocomint.math.annotations.Utils;
 
-@Utils
 public class Series {
 	public static final Sequence<Long> CATALAN = n -> Functions.C(n * 2, n) / (n + 1);
 
@@ -31,6 +29,15 @@ public class Series {
 		double res = 1;
 		for (int i = from; i <= to; i++) {
 			res *= sequence.get(i);
+		}
+		return res;
+	}
+
+	public static double product(Sequence<Double> sequence, int from, int to, FitIndex isFit) {
+		double res = 1;
+		for (int i = from; i <= to; i++) {
+			if (isFit.fit(i))
+				res *= sequence.get(i);
 		}
 		return res;
 	}

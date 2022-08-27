@@ -1,16 +1,17 @@
 package net.chocomint.math.geometry.dim2;
 
-import net.chocomint.math.annotations.Remark;
-
 public class Line2d {
-	private double slope, yIntercept;
+	private final double slope;
+	private final double yIntercept;
 
 	public Line2d(double slope, double yIntercept) {
 		this.slope = slope;
 		this.yIntercept = yIntercept;
 	}
 
-	@Remark("ax+by+c=0")
+	/**
+	 * {@code L: ax+by+c=0}
+	 */
 	public Line2d(double a, double b, double c) {
 		this.slope = -a / b;
 		this.yIntercept = -c / b;
@@ -21,7 +22,7 @@ public class Line2d {
 	}
 
 	public Vec2d normalVector() {
-		return new Vec2d(slope, 1);
+		return new Vec2d(slope, -1);
 	}
 
 	public static Line2d through(Vec2d point1, Vec2d point2) {

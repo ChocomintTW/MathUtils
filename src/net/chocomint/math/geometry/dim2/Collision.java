@@ -1,11 +1,9 @@
 package net.chocomint.math.geometry.dim2;
 
 import net.chocomint.math.Pair;
-import net.chocomint.math.annotations.Utils;
 
 import java.util.concurrent.atomic.AtomicReference;
 
-@Utils
 public class Collision {
 	public static Pair<Double, Double> getMinMaxForPolygonOnSeparatingLine(Polygon polygon, Line2d separatingLine) {
 		Vec2d dir = separatingLine.directionVector();

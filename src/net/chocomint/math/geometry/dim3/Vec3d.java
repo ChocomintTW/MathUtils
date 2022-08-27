@@ -137,6 +137,10 @@ public class Vec3d implements Computable<Vec3d>, IBase<Vec3d> {
 		}
 	}
 
+	public static double angle(Vec3d v1, Vec3d v2) {
+		return Math.acos(v1.copy().dot(v2) / (v1.length() * v2.length()));
+	}
+
 	@Override
 	public String toString() {
 		return "[" + x + ", " + y + ", " + z + "]";

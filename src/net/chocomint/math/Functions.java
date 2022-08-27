@@ -1,17 +1,22 @@
 package net.chocomint.math;
 
-import net.chocomint.math.annotations.Remark;
-import net.chocomint.math.annotations.Utils;
 import net.chocomint.math.sequence.Series;
 
-@Utils
+import java.util.ArrayList;
+import java.util.List;
+
 public class Functions {
 	public static final double EPS = 1e-8;
 
-	@Remark("Euler–Mascheroni constant")
+	/**
+	 * Euler-Mascheroni constant
+	 */
 	public static final double GAMMA = 0.5772156649015328606065;
 
-	@Remark("A characteristic S-shaped function")
+	/**
+	 * A characteristic S-shaped function <br>
+	 * Wiki: <a href="https://en.wikipedia.org/wiki/Sigmoid_function">Sigmoid Function</a>
+	 */
 	public static double sigmoid(double x) {
 		return 1 / (1 + Math.exp(-x));
 	}
@@ -32,19 +37,62 @@ public class Functions {
 		return x == 0 ? 1 : x * fraction(x - 1);
 	}
 
-	@Remark("Combination")
+	/**
+	 *
+	 * @param n Total n items
+	 * @param k Take k items
+	 * @return Combination counts
+	 */
 	public static long C(int n, int k) {
 		return (long) (Series.product(t -> (double) t, n - k + 1, n) / fraction(k));
 	}
 
-	@Remark("Permutation")
+	/**
+	 *
+	 * @param n Total n items
+	 * @param k Take k items
+	 * @return Permutation counts
+	 */
 	public static long P(int n, int k) {
 		return (long) Series.product(t -> (double) t, n - k + 1, n);
 	}
 
-	@Remark("Combination with repetition")
+	/**
+	 *
+	 * @param n Total n items
+	 * @param k Take k items
+	 * @return Combination with repetition counts
+	 */
 	public static long H(int n, int k) {
 		return C(n + k - 1, k);
+	}
+
+	public static int gcd(int a, int b) {
+		return 0;
+	}
+
+	public static List<Integer> createPrimeList(int n) {
+		boolean[] A = new boolean[n + 1];
+		for (int i = 0; i < n + 1; i++) { A[i] = true; } // all true
+		for (int i = 2; i <= Math.sqrt(n); i++) {
+			if (A[i]) {
+				for (int j = i * i; j < n + 1; j += i)
+					A[j] = false;
+			}
+		}
+		List<Integer> primeList = new ArrayList<>();
+		for (int i = 2; i < n + 1; i++)
+			if (A[i]) primeList.add(i);
+		return primeList;
+	}
+
+	public static boolean isPrime(int n) {
+		List<Integer> prL = createPrimeList(n);
+		return prL.get(prL.size() - 1) == n;
+	}
+
+	public static double gaussian(double x, double y, double sigma) {
+		return 1.0 / (2 * Math.PI * sigma * sigma) * Math.exp(-(x * x + y * y) / (2 * sigma * sigma));
 	}
 
 	public static double gamma(double x) {
@@ -77,5 +125,4 @@ public class Functions {
 			return 0;
 		}
 	}
-
 }

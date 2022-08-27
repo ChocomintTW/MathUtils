@@ -1,10 +1,7 @@
 package net.chocomint.math;
 
-import net.chocomint.math.annotations.Utils;
-
 import java.util.regex.Pattern;
 
-@Utils
 public class Radix {
 	public static final String HEX = "0123456789ABCDEF";
 

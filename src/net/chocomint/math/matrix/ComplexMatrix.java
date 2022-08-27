@@ -18,7 +18,7 @@ public class ComplexMatrix extends ComputableMatrix<Complex, ComplexMatrix> {
 	}
 
 	public ComplexMatrix(int row, int column, Complex init) {
-		super(row, column, init);
+		super(row, column, init.copy());
 	}
 
 	public static ComplexMatrix I(int n) {
@@ -26,7 +26,7 @@ public class ComplexMatrix extends ComputableMatrix<Complex, ComplexMatrix> {
 		for (int j = 0; j < n; j++) {
 			i.set(j, j, new Complex(1));
 		}
-		return i;
+		return i.copy();
 	}
 
 	@Override
@@ -99,12 +99,12 @@ public class ComplexMatrix extends ComputableMatrix<Complex, ComplexMatrix> {
 			int row = this.getRowSize();
 			int column = other.getColumnSize();
 			int n = this.getColumnSize();
-			ComplexMatrix matrix = new ComplexMatrix(row, column, Complex.ZERO);
+			ComplexMatrix matrix = new ComplexMatrix(row, column, Complex.ZERO.copy());
 			for (int i = 0; i < row; i++) {
 				for (int j = 0; j < column; j++) {
 					Complex value = Complex.ZERO.copy();
 					for (int k = 0; k < n; k++) {
-						value.add(this.get(i, k).multiply(other.get(k, j)));
+						value.add(this.get(i, k).copy().multiply(other.get(k, j).copy()));
 					}
 					matrix.set(i, j, value.copy());
 				}
@@ -210,19 +210,18 @@ public class ComplexMatrix extends ComputableMatrix<Complex, ComplexMatrix> {
 			throw new MatrixSizeMismatchException(SQUARE);
 	}
 
-	public static ComplexMatrix rowVector(Complex... vector) {
-		ComplexMatrix matrix = new ComplexMatrix(1, List.of(vector).size(), Complex.ZERO.copy());
-		for (int i = 0; i < List.of(vector).size(); i++) {
-			matrix.set(0, i, List.of(vector).get(i));
+	public ComplexMatrix getMatrixFrom(int row, int column) {
+		if (row == 0 && column == 0) return this.copy();
+		else {
+			int rowSize = this.getRowSize();
+			int colSize = this.getColumnSize();
+			ComplexMatrix matrix = new ComplexMatrix(rowSize - row, colSize - column, Complex.ZERO.copy());
+			for (int i = row; i < rowSize; i++) {
+				for (int j = column; j < colSize; j++) {
+					matrix.set(i - row, j - column, this.get(i, j));
+				}
+			}
+			return matrix;
 		}
-		return matrix;
-	}
-
-	public static ComplexMatrix columnVector(Complex... vector) {
-		ComplexMatrix matrix = new ComplexMatrix(List.of(vector).size(), 1, Complex.ZERO.copy());
-		for (int i = 0; i < List.of(vector).size(); i++) {
-			matrix.set(i, 0, List.of(vector).get(i));
-		}
-		return matrix;
 	}
 }

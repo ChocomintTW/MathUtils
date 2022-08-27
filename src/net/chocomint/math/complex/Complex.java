@@ -113,6 +113,10 @@ public class Complex implements Computable<Complex>, IBase<Complex> {
 		return pow(this, new Complex(0.5)).PV();
 	}
 
+	public Complex square() {
+		return this.copy().multiply(this);
+	}
+
 	public static Complex exp(Complex c) {
 		return new Complex(Math.cos(c.Im()), Math.sin(c.Im())).multiply(Math.exp(c.Re()));
 	}
@@ -153,10 +157,22 @@ public class Complex implements Computable<Complex>, IBase<Complex> {
 		return new Multivalued(k -> exp(power.copy().multiply(Ln(base).PV().add(i.copy().multiply(2 * k * Math.PI)))));
 	}
 
+	public static Complex pow(Complex base, int power) {
+		if (power == 0)
+			return Complex.ZERO.copy();
+		else if (power == 1)
+			return base.copy();
+		else if (power % 2 == 0)
+			return pow(base.square(), power / 2);
+		else
+			return pow(base.square(), (power - 1) / 2).multiply(base);
+	}
+
 	@Override
 	public String toString() {
-		return (real != 0 ? real : "") + (real != 0 && imag > 0 ? "+" : "") +
+		String x = (real != 0 ? real : "") + (real != 0 && imag > 0 ? "+" : "") +
 				(imag != 0 ? (imag == 1 ? "" : imag == -1 ? "-" : imag) + "i" : "");
+		return x.equals("") ? "0" : x;
 	}
 
 	// Another

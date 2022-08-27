@@ -28,6 +28,13 @@ public class Matrix extends ComputableMatrix<Double, Matrix> {
 	}
 
 	@Override
+	public Double get(int i, int j) {
+		if (i < 0 || i >= this.getRowSize() || j < 0 || j >= this.getColumnSize())
+			return 0.0;
+		else return super.get(i, j);
+	}
+
+	@Override
 	public Matrix copy() {
 		Matrix matrix = new Matrix(this.getRowSize(), this.getColumnSize(), 0);
 		for (int i = 0; i < this.getRowSize(); i++) {
@@ -76,7 +83,7 @@ public class Matrix extends ComputableMatrix<Double, Matrix> {
 	public Matrix divide(double value) {
 		for (int i = 0; i < this.getRowSize(); i++) {
 			for (int j = 0; j < this.getColumnSize(); j++) {
-				this.set(i, j, this.get(i, j) * value);
+				this.set(i, j, this.get(i, j) / value);
 			}
 		}
 		return this;
