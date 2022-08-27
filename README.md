@@ -8,5 +8,6 @@ A java library for math utilities.
 - Matrix
 - Quaternion
 - Sequence & Series
-- BigNumber
 - Radix
+- Calculus
+- Geometry
